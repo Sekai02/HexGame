@@ -3,8 +3,8 @@ import math
 import heapq
 from hexboard import HexBoard
 
-WINSCORE = 10000
-LOSESCORE = -10000
+WINSCORE = 100000
+LOSESCORE = -100000
 
 class Player:
     def __init__(self, player_id: int):
@@ -31,6 +31,13 @@ def is_valid_position(row: int, col: int, size: int) -> bool:
     """Utility function para verificar si una posición es válida dentro del tablero"""
     return 0 <= row < size and 0 <= col < size
 
+def is_immediate_win(board: HexBoard, row : int, col : int, player_id: int) -> bool:
+    """Chequea si poner la pieza lleva al jugador a ganar inmediatamente"""
+    board.place_piece(row, col, player_id)
+    win = board.check_connection(player_id)
+    board.board[row][col] = 0
+    return win
+
 class MordecaiBot(Player):
     # Si se comporta demasiado lento modificar los parametros time_limit y max_depth 
     # (max_depth = 3 recomendado para mayor velocidad, y/o time_limit=5.0)
@@ -41,6 +48,10 @@ class MordecaiBot(Player):
         self.max_depth = max_depth
 
     def play(self, board: HexBoard) -> tuple:
+        for move in board.get_possible_moves():
+            if is_immediate_win(board, move[0], move[1], self.player_id):
+                return move
+            
         start_time = time.time()
         best_move, _ = self.minimax(board, self.max_depth, -math.inf, math.inf, True, start_time)
         possible_moves = board.get_possible_moves()
