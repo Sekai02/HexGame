@@ -30,3 +30,6 @@ El algoritmo asigna un valor a cada estado del tablero utilizando una función d
     - Calcula una bonificación basada en la proximidad de las piezas del jugador al centro del tablero, incentivando una mayor conectividad y control estratégico.
     - **Ponderación**: `+5` por cada pieza del jugador cerca del centro, `-5` por cada pieza del oponente en una posición similar.
     - La fórmula incluye un factor de distancia para priorizar posiciones más cercanas al centro.
+
+#### Iterative Deepening
+El agente utiliza un enfoque de búsqueda con profundización iterativa para explorar el espacio de búsqueda de manera incremental.
