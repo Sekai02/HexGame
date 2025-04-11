@@ -17,9 +17,12 @@ class Player:
 
 def get_adjacent_positions(row: int, col: int) -> list[tuple[int, int]]:
     directions = [
-        (0, -1), (0, 1),
-        (-1, 0), (1, 0),
-        (-1, 1), (1, -1)
+        (0, -1), 
+        (0, 1),
+        (-1, 0),
+        (1, 0),
+        (-1, 1),
+        (1, -1)
     ]
     return [(row + dr, col + dc) for dr, dc in directions]
 
